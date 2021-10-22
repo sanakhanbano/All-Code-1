@@ -15,7 +15,7 @@ public class IntStack implements Stack<Integer> {
     //return true/false on whether stack is empty
     //@Override
     public boolean isEmpty() {
-        return pos == 0;
+        return size() == 0;
     }
     //Return the element at top of the Stack
     @Override
@@ -67,7 +67,6 @@ public class IntStack implements Stack<Integer> {
         int n = 10000000;
 
         IntStack intstack = new IntStack(n);
-
         //IntStack times around 0.0324
         long start = System.nanoTime();  
         for(int i = 0; i < n; i++) intstack.push(i);   
@@ -76,9 +75,25 @@ public class IntStack implements Stack<Integer> {
         System.out.println("Intstack time :" + (end - start) / 1e9);
 
         //arrayDeque around 1.048 seconds
-    }
+        java.util.ArrayDeque<Integer> arraydeque = new java.util.ArrayDeque<Integer>(n);
+        start = System.nanoTime(); 
+        for(int i = 0; i < n; i++) arraydeque.push(i);    
+        for(int i = 0; i < n; i++) arraydeque.pop();
+        end = System.nanoTime();
+        System.out.println("ArrayDeque time :" + (end - start) / 1e9);
+        
+        Stack<Integer> liststack = new ListStack<>();
+        start = System.nanoTime(); 
+        for(int i = 0; i < n; i++) liststack.push(i);   
+        for(int i = 0; i < n; i++) liststack.pop();
+        end = System.nanoTime();
+        System.out.println("ListStack time: " + (end - start) / 1e9);
 
-    
-
-    
+        Stack<Integer> arraystack = new ArrayStack<>();
+        start = System.nanoTime(); 
+        for(int i = 0; i < n; i++) arraystack.push(i);   
+        for(int i = 0; i < n; i++) arraystack.pop();
+        end = System.nanoTime();
+        System.out.println("ArrayStack time: " + (end - start) / 1e9);
+    }    
 }
